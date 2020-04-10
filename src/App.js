@@ -8,6 +8,10 @@ import {
   Footer,
 } from "./components";
 import createStore from "./redux";
+import {
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
 
 const store = createStore();
 const GlobalStyle = createGlobalStyle`
@@ -18,14 +22,18 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <Provider store={store}>
-      <Container>
-        <GlobalStyle />
-        <Header />
-        <Section />
-        <Footer />
-      </Container>
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <Container>
+          <GlobalStyle />
+          <Header />
+          <Route path="/todos/:filter" >
+            <Section />
+          </Route>
+          <Footer />
+        </Container>
+      </Provider>
+    </Router >
   );
 }
 
