@@ -31,7 +31,15 @@ export const todoReducer = (state = INITIAL_STATE, { type, payload }) => {
       };
     case types.DELETE_TODO:
       return {
-        todos: state.todos.filter(x => x.id !== payload.id),
+        todos: state.todos.filter(todo => todo.id !== payload.id),
+      };
+    case types.CLEAR_TODO:
+      return {
+        todos: state.todos.filter(todo => !todo.done),
+      };
+    case types.TOGGLE_ALL_TODO:
+      return {
+        todos: state.todos.map(todo => ({ ...todo, done: !state.todos.every(x => x.done) })),
       };
     default:
       return state;
