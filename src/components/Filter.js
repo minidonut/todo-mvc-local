@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory, useParams } from "react-router-dom";
 
 const StyledFilter = styled.div`
   position: relative;
@@ -45,13 +46,15 @@ const ClearButton = styled.p`
 `;
 
 const Filter = (props) => {
-  const { filter, setFilter, count, clear } = props;
+  const history = useHistory();
+  const { filter } = useParams();
+  const { count, clear } = props;
   return <StyledFilter>
     <p>{count} items left</p>
     <div style={{ display: "flex", alignItems: "center" }}>
-      <FilterButton onClick={() => setFilter("all")} current={filter === "all"}>All</FilterButton>
-      <FilterButton onClick={() => setFilter("active")} current={filter === "active"}>Active</FilterButton>
-      <FilterButton onClick={() => setFilter("completed")} current={filter === "completed"}>Completed</FilterButton>
+      <FilterButton onClick={() => history.push("/todos/all")} current={filter === "all"}>All</FilterButton>
+      <FilterButton onClick={() => history.push("/todos/active")} current={filter === "active"}>Active</FilterButton>
+      <FilterButton onClick={() => history.push("/todos/completed")} current={filter === "completed"}>Completed</FilterButton>
     </div>
     <ClearButton onClick={clear}>Clear completed</ClearButton>
   </StyledFilter>;

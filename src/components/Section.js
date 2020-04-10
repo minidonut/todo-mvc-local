@@ -4,6 +4,7 @@ import TodoItem from "./TodoItem";
 import Filter from "./Filter";
 import { Input } from "./Input";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import * as actions from "../redux/actions";
 
 const StyledSection = styled.section`
@@ -27,10 +28,10 @@ const StyledLabel = styled.label`
 
 
 export const Section = () => {
+  const { filter } = useParams();
   const [value, setValue] = React.useState("");
   const todos = useSelector((state) => state.todoReducer.todos);
   const dispatch = useDispatch();
-  const [filter, setFilter] = React.useState("all");
 
   const deleteTodo = React.useCallback((id) => {
     dispatch(actions.deleteTodo(id));
@@ -74,8 +75,6 @@ export const Section = () => {
         handleUpdate={updateTodo}
         key={todo.id} />)}
     {todos.length ? <Filter
-      filter={filter}
-      setFilter={setFilter}
       count={todos.length}
       clear={handleClear}
     /> : null}
