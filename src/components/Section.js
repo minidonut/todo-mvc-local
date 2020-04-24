@@ -6,7 +6,7 @@ import { Input } from "./Input";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as actions from "../redux/actions";
-import * as api from "../redux/apis/TodoAPI";
+import * as apis from "../redux/apis";
 
 const StyledSection = styled.section`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
@@ -34,8 +34,13 @@ export const Section = () => {
   const todos = useSelector((state) => state.todoReducer.todos);
   const dispatch = useDispatch();
 
-  const deleteTodo = React.useCallback((id) => {
-    dispatch(actions.deleteTodo(id));
+  const deleteTodo = React.useCallback(async (id) => {
+    try {
+      await apis.deleteTodo(id);
+      dispatch(actions.deleteTodo(id));
+    } catch (e) {
+      window.alert("Cannot delete todo from server");
+    }
   }, [dispatch]);
 
   const updateTodo = React.useCallback((id, done, content) => {
@@ -59,13 +64,16 @@ export const Section = () => {
 
   React.useEffect(() => {
     (async () => {
-      const res = await api.getTodos();
-      if (res) {
+      try {
+        const res = await apis.getTodos();
         res.data.forEach((todo) => {
-          dispatch(actions.addTodo(todo.content));
+          dispatch(actions.addTodo(todo));
         });
+      } catch (e) {
+        window.alert("Cannot fetch todo from server");
       }
     })();
+    // eslint-disable-next-line
   }, []);
 
 

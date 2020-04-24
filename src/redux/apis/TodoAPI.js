@@ -5,6 +5,10 @@ export const getTodos = (content) => {
   return axios.get(`${api}/todos`, { headers: { userId: 1 } });
 };
 
+export const deleteTodo = (id) => {
+  return axios.delete(`${api}/todos/${id}`, { headers: { userId: 1 } });
+};
+
 export const addTodo = (content) => {
 
 };
