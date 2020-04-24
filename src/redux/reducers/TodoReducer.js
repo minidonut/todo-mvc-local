@@ -9,9 +9,13 @@ export const todoReducer = (state = INITIAL_STATE, { type, payload }) => {
     case types.ADD_TODO:
       return {
         todos: [
-          ...state.todos,
           payload.todo,
+          ...state.todos,
         ]
+      };
+    case types.GET_TODO:
+      return {
+        todos: payload.todos,
       };
     case types.UPDATE_TODO:
       return {

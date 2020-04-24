@@ -5,6 +5,11 @@ export const addTodo = (todo) => ({
   payload: { todo },
 });
 
+export const getTodo = (todos) => ({
+  type: types.GET_TODO,
+  payload: { todos },
+});
+
 export const deleteTodo = (id) => ({
   type: types.DELETE_TODO,
   payload: { id },

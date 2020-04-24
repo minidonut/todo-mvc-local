@@ -71,9 +71,7 @@ export const Section = () => {
     (async () => {
       try {
         const res = await apis.getTodos();
-        res.data.forEach((todo) => {
-          dispatch(actions.addTodo(todo));
-        });
+        dispatch(actions.getTodo(res.data));
       } catch (e) {
         window.alert("Cannot fetch todo from server");
       }
