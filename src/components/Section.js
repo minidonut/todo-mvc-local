@@ -6,6 +6,7 @@ import { Input } from "./Input";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as actions from "../redux/actions";
+import * as api from "../redux/apis/TodoAPI";
 
 const StyledSection = styled.section`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
@@ -55,6 +56,18 @@ export const Section = () => {
   const handleToggleAll = React.useCallback(() => {
     dispatch(actions.toggleAllTodo());
   }, [dispatch]);
+
+  React.useEffect(() => {
+    (async () => {
+      const res = await api.getTodos();
+      if (res) {
+        res.data.forEach((todo) => {
+          dispatch(actions.addTodo(todo.content));
+        });
+      }
+    })();
+  }, []);
+
 
   return <StyledSection>
     <div style={{ display: "flex", alignItems: "center" }}>
