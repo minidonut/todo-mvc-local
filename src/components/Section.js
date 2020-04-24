@@ -47,10 +47,15 @@ export const Section = () => {
     dispatch(actions.updateTodo(id, done, content));
   }, [dispatch]);
 
-  const addTodo = React.useCallback((e) => {
+  const addTodo = React.useCallback(async (e) => {
     if (e.key === "Enter") {
-      dispatch(actions.addTodo(value));
-      setValue("");
+      try {
+        const res = await apis.addTodo(value);
+        dispatch(actions.addTodo(res.data));
+        setValue("");
+      } catch (e) {
+        window.alert("Cannot post to server");
+      }
     }
   }, [value, setValue, dispatch]);
 

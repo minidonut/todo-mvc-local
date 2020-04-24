@@ -10,5 +10,5 @@ export const deleteTodo = (id) => {
 };
 
 export const addTodo = (content) => {
-
+  return axios.post(`${api}/todos/`, { content }, { headers: { userId: 1 } });
 };
