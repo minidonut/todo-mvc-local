@@ -44,6 +44,9 @@ export const Section = () => {
   }, [dispatch]);
 
   const updateTodo = React.useCallback((id, done, content) => {
+    /**
+     * Complete the logic
+     */
     dispatch(actions.updateTodo(id, done, content));
   }, [dispatch]);
 
@@ -60,10 +63,16 @@ export const Section = () => {
   }, [value, setValue, dispatch]);
 
   const handleClear = React.useCallback(() => {
+    /**
+     * Complete the logic
+     */
     dispatch(actions.clearTodo());
   }, [dispatch]);
 
   const handleToggleAll = React.useCallback(() => {
+    /**
+     * Complete the logic
+     */
     dispatch(actions.toggleAllTodo());
   }, [dispatch]);
 
