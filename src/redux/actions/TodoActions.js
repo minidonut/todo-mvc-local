@@ -1,8 +1,13 @@
 import * as types from "../ActionTypes";
 
-export const addTodo = (content) => ({
+export const getTodos = (todos) => ({
+  type: types.GET_TODOS,
+  payload: { todos },
+});
+
+export const addTodo = (todo) => ({
   type: types.ADD_TODO,
-  payload: { content },
+  payload: { todo },
 });
 
 export const deleteTodo = (id) => ({

@@ -4,15 +4,17 @@ const INITIAL_STATE = {
   todos: [],
 };
 
-let todoCounter = 0;
-
 export const todoReducer = (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
+    case types.GET_TODOS:
+      return {
+        todos: payload.todos,
+      };
     case types.ADD_TODO:
       return {
         todos: [
+          payload.todo,
           ...state.todos,
-          { id: todoCounter++, content: payload.content, done: false },
         ]
       };
     case types.UPDATE_TODO:
